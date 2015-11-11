@@ -11,4 +11,9 @@ object Game {
   val dungeon = Var(Dungeon())
 
   val random = new Random()
+
+  def resetGame() = {
+    city := City()
+    dungeon := Dungeon()
+  }
 }

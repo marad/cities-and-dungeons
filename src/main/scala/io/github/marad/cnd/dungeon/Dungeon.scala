@@ -11,7 +11,7 @@ case class Dungeon(
   def beginTurn(): Dungeon =
     buildings.foldLeft[Dungeon => Dungeon](identity)(
       (f, b) => f andThen b.onTurnStart
-    )(copy(energy = energy + crystals))
+    )(copy(energy = energy + crystals * 2))
 
   def endTurn(): Dungeon =
     buildings.foldLeft[Dungeon => Dungeon](identity)(

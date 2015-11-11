@@ -2,11 +2,12 @@ package io.github.marad.cnd.dungeon.buildings
 
 import io.github.marad.cnd.Game
 import io.github.marad.cnd.dungeon.Dungeon
+import org.widok.Var
 
 object UndegroundGraveyard extends MonsterHive {
   val name: String = "Podziemne Cmentarzysko"
-  val cost = 10
-  val buildTime = 1f
+  val cost = Var(10)
+  val buildTime = Var(1f)
 
   override def onBuilt(dungeon: Dungeon): Dungeon =
     dungeon.copy(strength = dungeon.strength + 2)
