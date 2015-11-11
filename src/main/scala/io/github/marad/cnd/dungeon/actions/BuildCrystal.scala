@@ -1,6 +1,5 @@
 package io.github.marad.cnd.dungeon.actions
 
-import io.github.marad.cnd.dungeon.buildings.EnergyCrystal
 import io.github.marad.cnd.dungeon.{Dungeon, DungeonAction}
 
 object BuildCrystal extends DungeonAction {
@@ -9,5 +8,5 @@ object BuildCrystal extends DungeonAction {
   val name: String = "Wybuduj Kryształ Energii"
 
   override def doAction(dungeon: Dungeon): Dungeon =
-    dungeon.copy(buildings = dungeon.buildings :+ EnergyCrystal)
+    dungeon.copy(crystals = dungeon.crystals + 1)
 }

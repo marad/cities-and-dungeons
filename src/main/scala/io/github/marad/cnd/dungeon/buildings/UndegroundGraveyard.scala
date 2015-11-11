@@ -1,16 +1,29 @@
 package io.github.marad.cnd.dungeon.buildings
 
 import io.github.marad.cnd.Game
-import io.github.marad.cnd.dungeon.{Dungeon, Building}
+import io.github.marad.cnd.dungeon.Dungeon
 
-object UndegroundGraveyard extends Building {
-  override val name: String = "Podziemne Cmentarzysko"
+object UndegroundGraveyard extends MonsterHive {
+  val name: String = "Podziemne Cmentarzysko"
+  val cost = 10
+  val buildTime = 1f
 
-  override def apply(dungeon: Dungeon): Dungeon =
+  override def onBuilt(dungeon: Dungeon): Dungeon =
+    dungeon.copy(strength = dungeon.strength + 2)
+
+  override def onDestroyed(dungeon: Dungeon): Dungeon =
+    dungeon.copy(strength = dungeon.strength - 2)
+
+  override def onTurnEnd(dungeon: Dungeon): Dungeon = {
     if (Game.random.nextInt(1000) <= 100) {
-      val buildingToRemove = dungeon.buildings.filter(_ != EnergyCrystal)()
+      val hives = dungeon.buildings.filter {
+        case m: MonsterHive => m != UndegroundGraveyard
+        case _ => false
+      }
+      val hiveToRemove = hives(Game.random.nextInt(hives.size))
+      dungeon.destroy(hiveToRemove)
     } else {
       dungeon
     }
-
+  }
 }

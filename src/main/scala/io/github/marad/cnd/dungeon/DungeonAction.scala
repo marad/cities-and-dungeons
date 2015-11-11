@@ -2,10 +2,6 @@ package io.github.marad.cnd.dungeon
 
 import io.github.marad.cnd.Action
 
-trait Building extends Action[Dungeon] {
-  val name: String
-}
-
 trait DungeonAction extends Action[Dungeon] {
   def cost: Int
   def duration: Float
