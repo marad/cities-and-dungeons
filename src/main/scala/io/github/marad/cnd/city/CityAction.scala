@@ -5,10 +5,6 @@ import org.widok.Var
 
 
 trait CityAction extends Action[City] {
-  def cost: Var[Int]
-  def duration: Var[Float]
-  def name: String
-
   def doAction(city: City): City
 
   override def apply(city: City): City =

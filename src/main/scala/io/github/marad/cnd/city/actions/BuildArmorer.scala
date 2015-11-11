@@ -5,8 +5,8 @@ import io.github.marad.cnd.city.{City, CityAction}
 import org.widok.Var
 
 object BuildArmorer extends CityAction {
-  val cost = Var(20)
-  val duration = Var(1f)
+  val cost = Armorer.cost
+  val duration = Armorer.buildTime
   val name = "Wybuduj warsztat Płatnerza"
 
   override def doAction(city: City): City = city.copy(

@@ -5,8 +5,8 @@ import io.github.marad.cnd.city.{City, CityAction}
 import org.widok.Var
 
 object BuildMagesGuild extends CityAction {
-  val cost = Var(20)
-  val duration = Var(1f)
+  val cost = MagesGuild.cost
+  val duration = MagesGuild.buildTime
   val name = "Wybuduj Gildię Magów"
 
   override def doAction(city: City): City = city.copy(

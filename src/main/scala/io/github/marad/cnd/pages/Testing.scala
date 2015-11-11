@@ -4,7 +4,7 @@ import io.github.marad.cnd.Game
 import io.github.marad.cnd.city.actions._
 import io.github.marad.cnd.dungeon.actions.{BuildIllusionNet, BuildCrystal, Build}
 import io.github.marad.cnd.dungeon.buildings._
-import io.github.marad.cnd.widgets.{DungeonView, CityView}
+import io.github.marad.cnd.widgets.{Toolbar, DungeonView, CityView}
 import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
@@ -68,6 +68,7 @@ case class Testing() extends Page {
   )
 
   override def view(): View = div(
+    Toolbar(),
     Grid.Row(
       Grid.Column(
         div(CityView(Game.city)),
