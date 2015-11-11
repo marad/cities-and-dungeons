@@ -6,10 +6,11 @@ import io.github.marad.cnd.city.{City, CityAction}
 object BuildMagesGuild extends CityAction {
   val cost: Int = 20
   val duration: Float = 1f
+  val name = "Wybuduj Gildię Magów"
 
   override def doAction(city: City): City = city.copy(
     hero = city.hero.copy(level = city.hero.level + 1),
-    buildings = city.buildings :+ new MagesGuild
+    buildings = city.buildings :+ MagesGuild
   )
 }
 
