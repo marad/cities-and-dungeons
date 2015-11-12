@@ -1,6 +1,7 @@
 package io.github.marad.cnd.dungeon
 
 import io.github.marad.cnd.Building
+import io.github.marad.cnd.dungeon.buildings.IllusionNet
 
 case class Dungeon(
                   energy: Int = 20,
@@ -23,4 +24,9 @@ case class Dungeon(
 
   def destroy(building: Building[Dungeon]): Dungeon =
     building.onDestroyed(copy(buildings = buildings diff List(building)))
+
+  def difficulty: Int = {
+    val dif = 0.25 * (if (buildings.exists(_.isInstanceOf[IllusionNet])) strength * 2 else strength)
+    if (dif <= 1) 1 else Math.round(dif).toInt
+  }
 }
