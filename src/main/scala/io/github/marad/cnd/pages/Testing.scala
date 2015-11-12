@@ -19,8 +19,12 @@ case class Testing() extends Page {
 
   timeOfDay.attach(_ => actionTime := 1f)
 
-  val cityActions = Seq(BrewPotions, BuildArmorer, BuildMagesGuild, LoversKiss, Raid, Taxes, WarMeeting)
-  val dungeonActions = Seq(BuildCrystal, Build(Gate), Build(GoblinsDen), Build(Trap), Build(UndegroundGraveyard), BuildIllusionNet)
+  val cityActions = Seq(
+    BrewPotions, BuildArmorer, BuildMagesGuild,
+    LoversKiss, Raid, Taxes, WarMeeting)
+  val dungeonActions = Seq(
+    BuildCrystal, Build(Gate), Build(GoblinsDen), Build(Trap),
+    Build(UndegroundGraveyard), BuildIllusionNet)
 
   val cityActionsView = div(
     div("Czas: ", actionTime),
