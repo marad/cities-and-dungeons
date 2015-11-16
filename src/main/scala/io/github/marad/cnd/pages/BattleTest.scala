@@ -1,5 +1,6 @@
 package io.github.marad.cnd.pages
 
+import io.github.marad.cnd.Game
 import io.github.marad.cnd.battle.Battle
 import io.github.marad.cnd.city._
 import io.github.marad.cnd.dungeon._
@@ -9,7 +10,7 @@ import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
 
-case class BattleTest() extends Page {
+case class BattleTest(game: Game)() extends Page {
   val hero = Hero(5, Set(Kiss, Potion))
   val dungeon = Dungeon(strength = 5, buildings = Seq(Gate))
 

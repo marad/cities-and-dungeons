@@ -9,7 +9,7 @@ import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
 
-case class Testing() extends Page {
+case class GamePage(game: Game)() extends Page {
   trait Time
   case object Day extends Time
   case object Night extends Time
@@ -19,31 +19,34 @@ case class Testing() extends Page {
 
   timeOfDay.attach(_ => actionTime := 1f)
 
+  timeOfDay.filter(_ == Day).attach(_ => game.dayCycle.startDay())
+  timeOfDay.filter(_ == Night).attach(_ => game.dayCycle.startNight())
+
   val cityActions = Seq(
     BrewPotions, BuildArmorer, BuildMagesGuild,
     LoversKiss, Raid, Taxes, WarMeeting)
   val dungeonActions = Seq(
-    BuildCrystal, Build(Gate), Build(GoblinsDen), Build(Trap),
-    Build(UndegroundGraveyard), BuildIllusionNet)
+    BuildCrystal, Build(Gate), Build(new GoblinsDen(game)), Build(Trap),
+    Build(new UndegroundGraveyard(game)), BuildIllusionNet)
 
   val cityActionsView = div(
     div("Czas: ", actionTime),
     cityActions.map(action => {
       Button(action.name, " | ", action.cost, "zł | Czas: ", action.duration)
         .onClick(_ => {
-          Game.city := action(Game.city.get)
+          game.city := action(game.city.get)
           actionTime.update(_ - action.duration.get)
         })
-        .enabled(Game.city.zip(actionTime).map(v => action.cost.get <= v._1.gold && action.duration.get <= v._2))
+        .enabled(game.city.zip(actionTime).map(v => action.cost.get <= v._1.gold && action.duration.get <= v._2))
         .width(Length.Percentage(1))
         .css("action-btn")
     }),
     Button("Koniec dnia")
       .onClick(_ => {
-        Game.city := Game.city.get.endTurn()
-        Game.city := Game.city.get.beginTurn()
+        game.city := game.city.get.endTurn()
+        game.city := game.city.get.beginTurn()
         timeOfDay := Night
-        Game.log.info(Button("Hello"))
+        game.log.info(Button("Hello"))
       })
   )
 
@@ -52,17 +55,17 @@ case class Testing() extends Page {
     dungeonActions.map(action => {
       Button(action.name, " | ", action.cost, "e | Czas: ", action.duration)
         .onClick(_ => {
-          Game.dungeon := action(Game.dungeon.get)
+          game.dungeon := action(game.dungeon.get)
           actionTime.update(_ - action.duration.get)
         })
-        .enabled(Game.dungeon.zip(actionTime).map(v => action.cost.get <= v._1.energy && action.duration.get <= v._2))
+        .enabled(game.dungeon.zip(actionTime).map(v => action.cost.get <= v._1.energy && action.duration.get <= v._2))
         .width(Length.Percentage(1))
         .css("action-btn")
     }),
     Button("Koniec nocy")
       .onClick(_ => {
-        Game.dungeon := Game.dungeon.get.endTurn()
-        Game.dungeon := Game.dungeon.get.beginTurn()
+        game.dungeon := game.dungeon.get.endTurn()
+        game.dungeon := game.dungeon.get.beginTurn()
         timeOfDay := Day
       })
   )
@@ -74,18 +77,18 @@ case class Testing() extends Page {
 
 
   override def view(): View = div(
-    Toolbar(),
+    Toolbar(game),
     Grid.Row(
       Grid.Column(
-        div(CityView(Game.city)),
-        div(DungeonView(Game.dungeon))
+        div(CityView(game.city)),
+        div(DungeonView(game.dungeon))
       ).column(Size.ExtraSmall, 6),
       Grid.Column(
         div(actionsView)
       ).column(Size.ExtraSmall, 6)
     ),
     Grid.Row(
-      Grid.Column(Game.log.view)
+      Grid.Column(game.log.view)
     )
   )
 

@@ -1,6 +1,6 @@
 package io.github.marad.cnd.pages
 
-import io.github.marad.cnd.Action
+import io.github.marad.cnd.{Game, Action}
 import io.github.marad.cnd.city.actions._
 import io.github.marad.cnd.dungeon.actions.{Build, BuildIllusionNet, BuildCrystal}
 import io.github.marad.cnd.dungeon.buildings.{UndegroundGraveyard, Trap, GoblinsDen, Gate}
@@ -9,18 +9,18 @@ import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
 
-case class Settings() extends Page {
+case class Settings(game: Game)() extends Page {
   val cityActions = Seq(
     BrewPotions, BuildArmorer, BuildMagesGuild,
     LoversKiss, Raid, Taxes, WarMeeting
   )
 
   val dungeonActions = Seq(
-    BuildCrystal, Build(Gate), Build(GoblinsDen), Build(Trap),
-    Build(UndegroundGraveyard), BuildIllusionNet)
+    BuildCrystal, Build(Gate), Build(new GoblinsDen(game)), Build(Trap),
+    Build(new UndegroundGraveyard(game)), BuildIllusionNet)
 
   override def view(): View = div(
-    Toolbar(),
+    Toolbar(game),
     h1("Miasto"),
     div(cityActions.map(actionView)),
     h1("Loch"),
