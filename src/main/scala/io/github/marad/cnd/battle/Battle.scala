@@ -9,12 +9,25 @@ import scala.annotation.tailrec
 case class BattleTurn()
 case class Report(turns: Seq[BattleTurn])
 
-sealed trait BattleEvent
-case object KissDefends extends BattleEvent
-case object GateDestroyed extends BattleEvent
-case object Encounter extends BattleEvent
-case object UsePotion extends BattleEvent
+sealed trait BattleEvent {
+  def desc: String
+}
 
+case object KissDefends extends BattleEvent {
+  val desc = "Pocałunek"
+}
+
+case object GateDestroyed extends BattleEvent {
+  val desc = "Poszukiwacz traci poziom niszcząc wrota"
+}
+
+case object Encounter extends BattleEvent {
+  val desc = "Starcie!"
+}
+
+case object UsePotion extends BattleEvent {
+  val desc = "Mikstura przywraca pierwotny poziom poszukiwacza"
+}
 
 class Battle(hero: Hero, dungeon: Dungeon) {
   type Events = Seq[BattleEvent]
@@ -37,22 +50,15 @@ class Battle(hero: Hero, dungeon: Dungeon) {
       playTurns(singleTurn(info))
     }
 
-  private def singleTurn(info: Info): Info = {
-    case i@Info(h, d, events) if h.buffs.contains(Kiss) =>
+  private def singleTurn(info: Info): Info = info match {
+    case Info(h, d, events) if h.buffs.contains(Kiss) =>
       Info(h.copy(buffs = h.buffs - Kiss), d, events :+ KissDefends)
 
-    case Info(h, d, events) if h.level == 0 && h.buffs.contains(Potion) =>
-      Info(h.copy(level = hero.level), d, events :+ UsePotion)
+    case Info(h, d, events) if h.level <= 1 && h.buffs.contains(Potion) =>
+      Info(h.copy(level = hero.level, buffs = h.buffs - Potion), d, events :+ UsePotion)
 
     case Info(h, d, events) =>
       Info(h.copy(level = h.level - d.difficulty), d, events :+ Encounter)
   }
-
-//  private def singleTurn(info: Info): Info = {
-//    if(info.hero.buffs.contains(Kiss)) {
-//      info.copy(hero = info.hero.copy(buffs = info.hero.buffs - Kiss), events = info.events :+ KissDefends)
-//    }
-//    else if (info.hero.level <= 0 && info.hero.buffs)
-//  }
 }
 

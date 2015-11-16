@@ -4,7 +4,7 @@ import io.github.marad.cnd.Game
 import io.github.marad.cnd.city.actions._
 import io.github.marad.cnd.dungeon.actions.{BuildIllusionNet, BuildCrystal, Build}
 import io.github.marad.cnd.dungeon.buildings._
-import io.github.marad.cnd.widgets.{Toolbar, DungeonView, CityView}
+import io.github.marad.cnd.widgets._
 import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
@@ -43,6 +43,7 @@ case class Testing() extends Page {
         Game.city := Game.city.get.endTurn()
         Game.city := Game.city.get.beginTurn()
         timeOfDay := Night
+        Game.log.info(Button("Hello"))
       })
   )
 
@@ -71,6 +72,7 @@ case class Testing() extends Page {
     dungeonActionsView.show(timeOfDay.map(_ == Night))
   )
 
+
   override def view(): View = div(
     Toolbar(),
     Grid.Row(
@@ -81,6 +83,9 @@ case class Testing() extends Page {
       Grid.Column(
         div(actionsView)
       ).column(Size.ExtraSmall, 6)
+    ),
+    Grid.Row(
+      Grid.Column(Game.log.view)
     )
   )
 
