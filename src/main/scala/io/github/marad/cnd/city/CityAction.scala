@@ -5,12 +5,11 @@ import org.widok.Var
 
 
 trait CityAction extends Action[City] {
-  def doAction(city: City): City
+  protected def payForIt(city: City): City =
+    if (city.gold >= cost.get)
+      city.copy(gold = city.gold - cost.get)
+    else city
 
-  override def apply(city: City): City =
-    if (city.gold >= cost.get) {
-      doAction(city.copy(gold = city.gold - cost.get))
-    } else {
-      city
-    }
+  override def instantEffect(city: City): City = payForIt(city)
+  override def turnStartEffect(city: City): City
 }

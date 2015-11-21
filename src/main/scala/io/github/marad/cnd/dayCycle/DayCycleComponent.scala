@@ -24,7 +24,7 @@ trait DayCycleComponent {
     }
 
     def startNight() = {
-      doActions(DayStart)
+      doActions(DayEnd)
       doActions(NightStart)
     }
   }

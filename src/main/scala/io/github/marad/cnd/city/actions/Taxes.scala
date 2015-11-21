@@ -8,5 +8,5 @@ object Taxes extends CityAction {
   val duration = Var(1f)
   val name = "Podatki"
 
-  override def doAction(city: City): City = city.copy(gold = city.gold + 5)
+  override def turnStartEffect(city: City): City = city.copy(gold = city.gold + 5)
 }

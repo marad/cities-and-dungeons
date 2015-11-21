@@ -8,6 +8,6 @@ object WarMeeting extends CityAction {
   val duration = Var(0.5f)
   val name: String = "Narada Wojenna"
 
-  override def doAction(city: City): City =
+  override def turnStartEffect(city: City): City =
     city.copy(preparation = city.preparation + 3)
 }

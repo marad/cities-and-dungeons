@@ -9,7 +9,7 @@ object BuildArmorer extends CityAction {
   val duration = Armorer.buildTime
   val name = "Wybuduj warsztat Płatnerza"
 
-  override def doAction(city: City): City = city.copy(
+  override def turnStartEffect(city: City): City = city.copy(
     hero = city.hero.copy(level = city.hero.level + 2),
     buildings = city.buildings :+ Armorer
   )

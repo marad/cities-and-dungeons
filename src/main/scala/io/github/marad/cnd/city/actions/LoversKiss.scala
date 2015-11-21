@@ -8,6 +8,6 @@ object LoversKiss extends CityAction {
   val duration = Var(0.5f)
   val name = "Pocałunek Ukochanej"
 
-  override def doAction(city: City): City =
+  override def turnStartEffect(city: City): City =
     city.copy(hero = city.hero.copy(buffs = city.hero.buffs + Kiss))
 }

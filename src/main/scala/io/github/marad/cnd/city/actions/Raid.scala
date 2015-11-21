@@ -8,5 +8,5 @@ object Raid extends CityAction {
   val duration = Var(0.5f)
   val name = "Rajd"
 
-  override def doAction(city: City): City = city.copy(gold = city.gold + 15)
+  override def turnStartEffect(city: City): City = city.copy(gold = city.gold + 15)
 }

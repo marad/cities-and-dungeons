@@ -18,7 +18,7 @@ class GoblinsDen(game: Game) extends MonsterHive {
 
   override def onTurnStart(t: Dungeon): Dungeon =
     if (game.random.nextInt(1000) <= 100 && t.energy >= cost.get) {
-      new Build(this).apply(t)
+      new Build(new GoblinsDen(game)).instantEffect(t)
     } else t
 
 }

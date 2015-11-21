@@ -9,7 +9,7 @@ object BuildMagesGuild extends CityAction {
   val duration = MagesGuild.buildTime
   val name = "Wybuduj Gildię Magów"
 
-  override def doAction(city: City): City = city.copy(
+  override def turnStartEffect(city: City): City = city.copy(
     hero = city.hero.copy(level = city.hero.level + 1),
     buildings = city.buildings :+ MagesGuild
   )
