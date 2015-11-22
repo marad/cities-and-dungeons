@@ -1,11 +1,13 @@
 package io.github.marad.cnd.dungeon.buildings
 
-import io.github.marad.cnd.Game
 import io.github.marad.cnd.dungeon.Dungeon
 import io.github.marad.cnd.dungeon.actions.Build
+import io.github.marad.cnd.widgets.Log
 import org.widok.Var
 
-class GoblinsDen(game: Game) extends MonsterHive {
+import scala.util.Random
+
+class GoblinsDen(random: Random, log: Log) extends MonsterHive {
   override val name: String = "Siedlisko Goblinów"
   override val cost = Var(10)
   override val buildTime = Var(0.5f)
@@ -17,8 +19,8 @@ class GoblinsDen(game: Game) extends MonsterHive {
     t.copy(strength = t.strength - 1)
 
   override def onTurnStart(t: Dungeon): Dungeon =
-    if (game.random.nextInt(1000) <= 100 && t.energy >= cost.get) {
-      new Build(new GoblinsDen(game)).instantEffect(t)
+    if (random.nextInt(1000) <= 100 && t.energy >= cost.get) {
+      new Build(new GoblinsDen(random, log)).instantEffect(t)
     } else t
 
 }

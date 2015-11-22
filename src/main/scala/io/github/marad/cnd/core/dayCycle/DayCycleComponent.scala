@@ -1,4 +1,4 @@
-package io.github.marad.cnd.dayCycle
+package io.github.marad.cnd.core.dayCycle
 
 import org.widok.Var
 

@@ -1,7 +1,7 @@
 package io.github.marad.cnd.widgets
 
 import io.github.marad.cnd.{ActionSubject, Game, Action}
-import io.github.marad.cnd.dayCycle.NightStart
+import io.github.marad.cnd.core.dayCycle.NightStart
 import org.scalajs.dom.html.Element
 import org.widok._
 import org.widok.html._

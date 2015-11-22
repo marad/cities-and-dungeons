@@ -3,27 +3,15 @@ package io.github.marad.cnd.pages
 import io.github.marad.cnd.city.City
 import io.github.marad.cnd.dungeon.Dungeon
 import io.github.marad.cnd.{Action, Game}
-import io.github.marad.cnd.city.actions._
-import io.github.marad.cnd.dayCycle.{TimeOfDay, NightStart, DayStart}
-import io.github.marad.cnd.dungeon.actions.{BuildIllusionNet, BuildCrystal, Build}
-import io.github.marad.cnd.dungeon.buildings._
+import io.github.marad.cnd.core.dayCycle.{TimeOfDay, NightStart, DayStart}
 import io.github.marad.cnd.widgets._
 import org.widok._
 import org.widok.html._
 import org.widok.bindings.Bootstrap._
 
 case class GamePage(game: Game)() extends Page {
-
-  val cityActions = Seq(
-    BrewPotions, BuildArmorer, BuildMagesGuild,
-    LoversKiss, Raid, Taxes, WarMeeting)
-
-  val dungeonActions = Seq(
-    BuildCrystal, Build(Gate), Build(new GoblinsDen(game)), Build(Trap),
-    Build(new UndegroundGraveyard(game)), BuildIllusionNet)
-
-  val cityActionsView = ActionsView(cityActions, game.city)
-  val dungeonActionsView = ActionsView(dungeonActions, game.dungeon)
+  val cityActionsView = ActionsView(game.cityActions, game.city)
+  val dungeonActionsView = ActionsView(game.dungeonActions, game.dungeon)
 
   val cityScheduledActions = Buffer[Action[City]]()
   val dungeonScheduledActions = Buffer[Action[Dungeon]]()
@@ -79,6 +67,7 @@ case class GamePage(game: Game)() extends Page {
         div(actionsView)
       ).column(Size.ExtraSmall, 6)
     ),
+    div(h2("Wydarzenia")),
     Grid.Row(
       Grid.Column(game.log.view)
     )
