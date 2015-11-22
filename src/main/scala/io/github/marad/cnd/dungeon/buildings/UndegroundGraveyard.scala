@@ -18,7 +18,7 @@ class UndegroundGraveyard(random: Random, log: Log) extends MonsterHive {
     dungeon.copy(strength = dungeon.strength - 2)
 
   override def onTurnEnd(dungeon: Dungeon): Dungeon = {
-    if (random.nextInt(1000) <= 100) {
+    if (random.nextFloat() <= 0.1) {
       val hives = dungeon.buildings.filter {
         case m: UndegroundGraveyard => false
         case m: MonsterHive => true

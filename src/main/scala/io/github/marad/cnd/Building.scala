@@ -14,4 +14,6 @@ trait Building[T] {
   def onTurnStart(t: T): T = t
 
   def onTurnEnd(t: T): T = t
+
+  val additionalSettings: View = ""
 }

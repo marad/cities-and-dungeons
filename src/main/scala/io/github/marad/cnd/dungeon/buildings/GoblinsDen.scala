@@ -19,8 +19,8 @@ class GoblinsDen(random: Random, log: Log) extends MonsterHive {
     t.copy(strength = t.strength - 1)
 
   override def onTurnStart(t: Dungeon): Dungeon =
-    if (random.nextInt(1000) <= 100 && t.energy >= cost.get) {
+    if (random.nextFloat() <= 0.1 && t.energy >= cost.get) {
       new Build(new GoblinsDen(random, log)).instantEffect(t)
     } else t
-
 }
+

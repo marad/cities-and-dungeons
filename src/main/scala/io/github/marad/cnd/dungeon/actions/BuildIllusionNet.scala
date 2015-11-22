@@ -2,7 +2,7 @@ package io.github.marad.cnd.dungeon.actions
 
 import io.github.marad.cnd.dungeon.buildings.IllusionNet
 import io.github.marad.cnd.dungeon.{Dungeon, DungeonAction}
-import org.widok.Var
+import org.widok.{View, Var}
 
 object BuildIllusionNet extends DungeonAction {
   val cost: Var[Int] = IllusionNet.cost
@@ -12,4 +12,6 @@ object BuildIllusionNet extends DungeonAction {
   override def doAction(dungeon: Dungeon): Dungeon = {
     dungeon.build(new IllusionNet())
   }
+
+  override val additionalSettings: View = IllusionNet.additionalSettings
 }
