@@ -1,6 +1,6 @@
 package io.github.marad.cnd.dungeon
 
-import io.github.marad.cnd.Building
+import io.github.marad.cnd.{ActionSubject, Building}
 import io.github.marad.cnd.dungeon.buildings.IllusionNet
 
 case class Dungeon(
@@ -8,7 +8,9 @@ case class Dungeon(
                   strength: Int = 0,
                   crystals: Int = 2,
                   buildings: Seq[Building[Dungeon]] = Seq()
-                  ) {
+                  ) extends ActionSubject[DungeonAction] {
+  def canPerform(action: DungeonAction) = action.cost.get <= energy
+
   def beginTurn(): Dungeon =
     buildings.foldLeft[Dungeon => Dungeon](identity)(
       (f, b) => f andThen b.onTurnStart
