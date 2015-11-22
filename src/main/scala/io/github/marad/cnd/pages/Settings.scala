@@ -18,11 +18,13 @@ case class Settings(game: Game)() extends Page {
   override def ready(route: InstantiatedRoute): Unit = {}
 
   private def actionView[T](action: Action[T]) =
-    Grid.Row(
-      Grid.Column(b(action.name)).column(Size.ExtraSmall, 4),
-      Grid.Column("Koszt:").column(Size.ExtraSmall, 1),
-      Grid.Column(Input.Number().bind(action.cost.biMap(_.toString, _.toInt))).column(Size.ExtraSmall, 3),
-      Grid.Column("Czas:").column(Size.ExtraSmall, 1),
-      Grid.Column(Input.Number().bind(action.duration.biMap(_.toString, _.toFloat))).column(Size.ExtraSmall, 3)
+    div(
+      Grid.Row(
+        Grid.Column(b(action.name)).column(Size.ExtraSmall, 4),
+        Grid.Column("Koszt:").column(Size.ExtraSmall, 2),
+        Grid.Column(Input.Number().bind(action.cost.biMap(_.toString, _.toInt))).column(Size.ExtraSmall, 2),
+        Grid.Column("Czas:").column(Size.ExtraSmall, 2),
+        Grid.Column(Input.Number().bind(action.duration.biMap(_.toString, _.toFloat))).column(Size.ExtraSmall, 2)
+      ), action.additionalSettings
     )
 }

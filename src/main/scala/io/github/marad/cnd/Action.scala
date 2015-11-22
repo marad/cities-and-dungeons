@@ -1,6 +1,6 @@
 package io.github.marad.cnd
 
-import org.widok.Var
+import org.widok.{View, Var}
 
 trait Action[T] {
   def cost: Var[Int]
@@ -9,4 +9,6 @@ trait Action[T] {
 
   def instantEffect(t: T): T = t
   def turnStartEffect(t: T): T = t
+
+  val additionalSettings: View = ""
 }
