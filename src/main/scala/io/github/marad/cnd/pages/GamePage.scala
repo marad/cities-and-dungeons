@@ -46,32 +46,24 @@ case class GamePage(game: Game)() extends Page {
     game.log.info("Akcja: " + action.name)
   }))
 
-  sealed trait Time
-  case object Day extends Time
-  case object Night extends Time
+  cityActionsView.endTurn.attach { _ => game.timeOfDay := NightStart }
+  dungeonActionsView.endTurn.attach { _ => game.timeOfDay := DayStart }
 
-  val timeOfDay = Var[Time](Day)
-
-  cityActionsView.endTurn.attach { _ => timeOfDay := Night }
-  dungeonActionsView.endTurn.attach { _ => timeOfDay := Day }
-
-  timeOfDay.filter(_ == Day).attach(_ => {
-    game.dayCycle.startDay()
+  game.days.attach(_ => {
     game.dungeon := game.dungeon.get.endTurn()
     game.city := game.city.get.beginTurn()
     game.log.info("Wshodzi słońce")
   })
 
-  timeOfDay.filter(_ == Night).attach(_ => {
-    game.dayCycle.startNight()
+  game.nights.attach(_ => {
     game.city := game.city.get.endTurn()
     game.dungeon := game.dungeon.get.beginTurn()
     game.log.info("Nastaje noc")
   })
 
   val actionsView = div(
-    cityActionsView.show(timeOfDay.map(_ == Day)),
-    dungeonActionsView.show(timeOfDay.map(_ == Night))
+    cityActionsView.show(game.timeOfDay.map(_ == DayStart)),
+    dungeonActionsView.show(game.timeOfDay.map(_ == NightStart))
   )
 
   override def view(): View = div(

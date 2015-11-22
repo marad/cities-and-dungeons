@@ -1,9 +1,18 @@
 package io.github.marad.cnd.dayCycle
 
+import org.widok.Var
+
 import scala.collection.mutable
 
 trait DayCycleComponent {
+  val timeOfDay = Var[TimeOfDay with TurnChanger](DayStart)
   val dayCycle: DayCycle = new DayCycle()
+
+  val days = timeOfDay.filter(_ == DayStart)
+  val nights = timeOfDay.filter(_ == NightStart)
+
+  days.attach(_ => dayCycle.startDay())
+  nights.attach(_ => dayCycle.startNight())
 
   class DayCycle {
     type Action = () => Any
