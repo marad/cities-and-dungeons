@@ -36,5 +36,9 @@ trait DayCycleComponent {
       doActions(DayEnd)
       doActions(NightStart)
     }
+
+    def clear() = {
+      actions.keys.map(actions.remove)
+    }
   }
 }

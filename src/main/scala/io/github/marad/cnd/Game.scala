@@ -2,7 +2,7 @@ package io.github.marad.cnd
 
 import io.github.marad.cnd.city.City
 import io.github.marad.cnd.core.{DungeonActions, CityActions}
-import io.github.marad.cnd.core.dayCycle.DayCycleComponent
+import io.github.marad.cnd.core.dayCycle.{DayStart, DayCycleComponent}
 import io.github.marad.cnd.dungeon.Dungeon
 import io.github.marad.cnd.widgets.Log
 import org.widok._
@@ -33,6 +33,11 @@ trait Game
   })
 
   def resetGame() = {
+    log.clear()
+
+    timeOfDay := DayStart
+    dayCycle.clear()
+
     city := City()
     dungeon := Dungeon()
   }

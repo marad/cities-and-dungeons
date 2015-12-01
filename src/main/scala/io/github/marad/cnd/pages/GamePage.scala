@@ -42,7 +42,12 @@ case class GamePage(game: Game)() extends Page {
   )
 
   override def view(): View = div(
-    Toolbar(game),
+    Toolbar(game, () => {
+      cityActionsView.remainingTime := 1
+      dungeonActionsView.remainingTime := 1
+      cityScheduledActions.clear()
+      dungeonScheduledActions.clear()
+    }),
     Grid.Row(
       Grid.Column(
         div(CityView(game.city)),

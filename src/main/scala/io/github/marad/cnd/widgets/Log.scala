@@ -18,4 +18,5 @@ class Log {
   def info(message: String) = entries.prepend(new MessageEntry(message))
   def custom(view: View) = entries.prepend(new CustomEntry(view))
   def view: View = entries.map(e => div(e.view))
+  def clear() = entries.clear()
 }
