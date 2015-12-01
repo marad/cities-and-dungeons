@@ -12,8 +12,6 @@ class IllusionNet extends Building[Dungeon] {
 
   private var turnsLeft = IllusionNet.activeTurns.get
 
-  println("Built illusion net")
-
   override def onTurnEnd(t: Dungeon): Dungeon =
     if (turnsLeft > 0) {
       turnsLeft -= 1

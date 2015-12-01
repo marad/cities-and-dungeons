@@ -30,9 +30,8 @@ case class GamePage(game: Game)() extends Page {
   cityActionsView.selectedActions.attach(handleSelectedAction(DayStart, game.city, cityScheduledActions))
   dungeonActionsView.selectedActions.attach(handleSelectedAction(NightStart, game.dungeon, dungeonScheduledActions))
 
-  Seq(cityActionsView, dungeonActionsView).foreach(av => av.selectedActions.attach(action => {
-    game.log.info("Akcja: " + action.name)
-  }))
+  cityActionsView.selectedActions.attach(action => game.log.info("Akcja miasta: " + action.name))
+  dungeonActionsView.selectedActions.attach(action => game.log.info("Akcja lochów: " + action.name))
 
   cityActionsView.endTurn.attach { _ => game.timeOfDay := NightStart }
   dungeonActionsView.endTurn.attach { _ => game.timeOfDay := DayStart }
