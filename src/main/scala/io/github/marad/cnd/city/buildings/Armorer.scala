@@ -8,9 +8,7 @@ object Armorer extends Building[City] {
   val name = "Płatnerz"
   val cost: Var[Int] = Var(20)
   val buildTime: Var[Float] = Var(1f)
-  //override def apply(city: City): City = city.copy(preparation = city.preparation + 1)
 
   override def onTurnStart(city: City): City =
     city.copy(preparation = city.preparation + 1)
-
 }
