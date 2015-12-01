@@ -18,7 +18,10 @@ case class Dungeon(
 
   def endTurn(): Dungeon =
     buildings.foldLeft[Dungeon => Dungeon](identity)(
-      (f, b) => f andThen b.onTurnEnd
+      (f, b) => {
+        println(b)
+        f andThen b.onTurnEnd
+      }
     )(this)
 
   def build(building: Building[Dungeon]): Dungeon =

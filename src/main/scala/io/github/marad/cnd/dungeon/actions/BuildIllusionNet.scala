@@ -9,7 +9,7 @@ object BuildIllusionNet extends DungeonAction {
   val name: String = IllusionNet.name
   val duration: Var[Float] = IllusionNet.buildTime
 
-  override def doAction(dungeon: Dungeon): Dungeon = {
+  override def turnStartEffect(dungeon: Dungeon): Dungeon = {
     dungeon.build(new IllusionNet())
   }
 

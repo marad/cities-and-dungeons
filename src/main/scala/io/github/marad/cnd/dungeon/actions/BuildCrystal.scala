@@ -11,7 +11,7 @@ object BuildCrystal extends DungeonAction {
   val name: String = "Wybuduj Kryształ Energii"
   val crystalInc = Var(2)
 
-  override def doAction(dungeon: Dungeon): Dungeon =
+  override def turnStartEffect(dungeon: Dungeon): Dungeon =
     dungeon.copy(crystals = dungeon.crystals + crystalInc.get)
 
   override val additionalSettings: View = Grid.Row(

@@ -10,7 +10,7 @@ trait DungeonActions {
   val random: Random
   val log: Log
 
-  val dungeonActions = Seq(
+  lazy val dungeonActions = Seq(
     BuildCrystal, Build(Gate), Build(new GoblinsDen(random, log)), Build(Trap),
     Build(new UndegroundGraveyard(random, log)), BuildIllusionNet)
 

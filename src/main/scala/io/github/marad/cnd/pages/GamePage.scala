@@ -37,18 +37,6 @@ case class GamePage(game: Game)() extends Page {
   cityActionsView.endTurn.attach { _ => game.timeOfDay := NightStart }
   dungeonActionsView.endTurn.attach { _ => game.timeOfDay := DayStart }
 
-  val daysSubscription = game.days.silentAttach(_ => {
-    game.dungeon := game.dungeon.get.endTurn()
-    game.city := game.city.get.beginTurn()
-    game.log.info("Wshodzi słońce")
-  })
-
-  val nightsSubscription = game.nights.silentAttach(_ => {
-    game.city := game.city.get.endTurn()
-    game.dungeon := game.dungeon.get.beginTurn()
-    game.log.info("Nastaje noc")
-  })
-
   val actionsView = div(
     cityActionsView.show(game.timeOfDay.map(_ == DayStart)),
     dungeonActionsView.show(game.timeOfDay.map(_ == NightStart))
@@ -74,9 +62,4 @@ case class GamePage(game: Game)() extends Page {
   )
 
   override def ready(route: InstantiatedRoute): Unit = {}
-
-  override def destroy(): Unit = {
-    daysSubscription.dispose()
-    nightsSubscription.dispose()
-  }
 }

@@ -20,6 +20,18 @@ trait Game
   val city = Var(City())
   val dungeon = Var(Dungeon())
 
+  val daysSubscription = days.silentAttach(_ => {
+    dungeon := dungeon.get.endTurn()
+    city := city.get.beginTurn()
+    log.info("Wshodzi słońce")
+  })
+
+  val nightsSubscription = nights.silentAttach(_ => {
+    city := city.get.endTurn()
+    dungeon := dungeon.get.beginTurn()
+    log.info("Nastaje noc")
+  })
+
   def resetGame() = {
     city := City()
     dungeon := Dungeon()

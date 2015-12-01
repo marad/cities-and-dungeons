@@ -9,6 +9,6 @@ case class Build(building: Building[Dungeon]) extends DungeonAction {
   override def cost: Var[Int] = building.cost
   override def duration: Var[Float] = building.buildTime
 
-  override def doAction(dungeon: Dungeon): Dungeon =
+  override def turnStartEffect(dungeon: Dungeon): Dungeon =
     dungeon.build(building)
 }
